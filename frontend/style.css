@@ -1,0 +1,21 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; }
+
+.container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+h1 { color: #2d3748; margin-bottom: 10px; font-size: 2.5em; }
+p { color: #718096; margin-bottom: 30px; }
+
+.input-group { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+textarea { width: 100%; height: 120px; padding: 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; resize: vertical; }
+textarea:focus { outline: none; border-color: #4299e1; }
+button { width: 100%; height: 50px; background: #4299e1; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; margin-top: 16px; cursor: pointer; }
+button:hover { background: #3182ce; }
+
+.loading { text-align: center; padding: 40px; font-size: 18px; color: #4299e1; }
+.hidden { display: none; }
+
+.result { margin-top: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.result h3 { color: #2d3748; margin-bottom: 20px; }
+#confidence, #method, #summary { margin-bottom: 15px; padding: 12px; background: #f7fafc; border-radius: 6px; }
+.badge { font-size: 14px; padding: 4px 8px; border-radius: 12px; margin-left: 10px; }
+pre { background: #2d3748; color: #a0aec0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 14px; }

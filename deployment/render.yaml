@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: clinical-note-ai
+    env: docker
+    dockerfilePath: ./deployment/Dockerfile
+    envVars:
+      - key: OPENROUTER_API_KEY
+        valueFrom: your-render-env-var
+    plan: free

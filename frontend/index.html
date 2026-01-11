@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🏥 Clinical Note AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Clinical Note AI</h1>
+        <p>Extracts SOAP structure from clinical notes instantly</p>
+        
+        <div class="input-group">
+            <textarea id="noteInput" placeholder="Paste clinical note here...&#10;Ex: 72yo COPD SpO2 88% albuterol prednisone"></textarea>
+            <button onclick="analyzeNote()">Analyze Note</button>
+        </div>
+        
+        <div id="loading" class="loading hidden">Analyzing with AI...</div>
+        
+        <div id="result" class="result hidden">
+            <h3>Results:</h3>
+            <div id="confidence"></div>
+            <div id="method"></div>
+            <div id="summary"></div>
+            <pre id="structured"></pre>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeNote() {
+            const text = document.getElementById('noteInput').value;
+            if (!text || text.length < 10) {
+                alert('Please enter a clinical note (min 10 chars)');
+                return;
+            }
+
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('result').classList.add('hidden');
+
+            try {
+                const response = await fetch('/extract', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({text: text})
+                });
+
+                const data = await response.json();
+                showResults(data);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+
+        function showResults(data) {
+            document.getElementById('confidence').innerHTML = 
+                `<strong>Confidence:</strong> ${data.confidence_score}<span class="badge">${getConfidenceColor(data.confidence_score)}</span>`;
+            
+            document.getElementById('method').innerHTML = 
+                `<strong>Method:</strong> ${data.method_used}`;
+            
+            document.getElementById('summary').innerHTML = 
+                `<strong>Summary:</strong> ${data.summary}`;
+            
+            document.getElementById('structured').textContent = 
+                JSON.stringify(data.structured_data, null, 2);
+            
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        function getConfidenceColor(score) {
+            if (score >= 0.9) return '🟢 Excellent';
+            if (score >= 0.7) return '🟡 Good';
+            return '🟠 Processing';
+        }
+    </script>
+</body>
+</html>
