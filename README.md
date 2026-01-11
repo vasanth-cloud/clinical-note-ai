@@ -4,3 +4,5 @@ Trade-offs were deliberate: Single API key dependency (OpenRouter) keeps it simp
 
 ![Uploading Untitled diagram-2026-01-11-195944.png…]()
 
+
+
